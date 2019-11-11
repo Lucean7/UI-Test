@@ -1,0 +1,23 @@
+﻿1. XPath: //a[ancestor::span[@class='top-navigation__item-text']]
+	CSS: ul.top-navigation__row span>a
+2. XPath: //div[@class='training-list__container training-list__desktop']/descendant::div[contains(text(),'1')][@class='ng-binding']
+	CSS: -
+3. XPath: //div[@class="tab-content__item tab-content__item--active"]/descendant::a
+	CSS: -
+4. XPath: //a[contains(text(),'Automation')]
+	CSS:
+5. XPath: //a[@class="button-ui bg-color-light-blue"][ancestor::li/time[contains(text(),'NOVEMBER')]][ancestor::div[@class="tabs__item js-tabs-item active"]]
+	CSS: -
+
+
+1. XPath:  //span[@style='white-space:nowrap'][ancestor::tr[descendant::a[@title="United States"]]]
+	CSS:	-
+2. XPath: //img[@alt="Effective Programming for America logo.svg"]
+	CSS: img[alt='Effective Programming for America logo.svg']
+? 3. XPath:   //span[@class="toctext"][ancestor::ul[descendant::span[contains(text(),'2')]]]
+		//span[@class="toctext"][ancestor:a[descendant::span[contains(text(),'2')]]]
+	CSS:
+4. XPath: //a[@class="interlanguage-link-target"]
+	CSS:	a.interlanguage-link-target
+5. XPath: //a[ancestor::div[@id='p-tb']]
+	CSS: 	div#p-tb  a
