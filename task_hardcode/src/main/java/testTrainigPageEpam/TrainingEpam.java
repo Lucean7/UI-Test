@@ -1,11 +1,12 @@
 package testTrainigPageEpam;
 
-import core.PageFactoryInitialization;
+import core.AbstractPageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
-public class TrainingHomePageEpam extends PageFactoryInitialization{
+public class TrainingEpam extends AbstractPageObject {
 
     @FindBy(xpath = "//p[@class='header-auth__signin']")
     private WebElement singIn;
@@ -19,31 +20,38 @@ public class TrainingHomePageEpam extends PageFactoryInitialization{
     private  WebElement incorrectLogin;
     @FindBy(xpath = "//div[@class='popup-title__close']")
     private  WebElement titleClose;
+    @FindBy(xpath = "//a[@class='logo logo--epam']")
+    private  WebElement toHome;
 
-    //@FindBy(xpath = "//div[@class='location-selector__globe']")
-    //private  WebElement slectorLanguageMenu;
-    //@FindBy(xpath = "//a[contains(text(),'English')]")
-    //private  WebElement selectortEnglish;
 
-    public TrainingHomePageEpam(WebDriver driver) {
+    public TrainingEpam(WebDriver driver) {
         super(driver);
     }
-    public void clickSingIn(){
+    public TrainingEpam signInEmailPassword(String mail, String password) throws InterruptedException {
         singIn.click();
-    }
-    public void signInEmailPassword(String mail, String password) throws InterruptedException {
         signInEmail.sendKeys(mail);
         signInPassword.sendKeys(password);
-    }
-    public String getMessageFailed(){
         signInGo.click();
-        return incorrectLogin.getText();
+        return this;
     }
-    public LoginPageEpam passToLoginPageEpam(){
+    public TrainingEpam getMessageFailed(){
         signInGo.click();
-        return new LoginPageEpam(driver);
+        Assert.assertEquals(incorrectLogin.getText(), "Ошибка авторизации. Пожалуйста, попробуйте еще раз.",
+                "Incorrect work");//"Login failed. Please try again."
+        return this;
     }
-    public void titleCloseClick() {
+    public LoginTrainingEpam passToLoginPageEpam(){
+        signInGo.click();
+        return new LoginTrainingEpam(driver);
+    }
+    public TrainingEpam titleCloseClick() {
         titleClose.click();
+        return this;
+    }
+
+
+    public TrainingEpam homeClick() {
+        toHome.click();
+        return this;
     }
 }

@@ -5,9 +5,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class EnvironmentsURL {
-    private static String environment(String linkPath) {
-
-        try (InputStream inputStream = EnvironmentsURL.class.getClassLoader().getResourceAsStream("config.pathsite.properties")) {
+    private static String environment(String linkPath, String resources) {
+        try (InputStream inputStream = EnvironmentsURL.class.getClassLoader().getResourceAsStream(resources)) {
             Properties propertis = new Properties();
             propertis.load(inputStream);
             return propertis.getProperty(linkPath);
@@ -16,7 +15,13 @@ public class EnvironmentsURL {
         }
         throw new NullPointerException("File");
     }
-    public static String getPathTraining(){
-        return environment("linkTraining.path");
+    public static String getPathTraining(String linkSite, String resources){
+        return environment(linkSite, resources);
+    }
+    public static String getUserMail(String mail, String resources){
+        return environment(mail, resources);
+    }
+    public static String getUserPassword(String password, String resources){
+        return environment(password, resources);
     }
 }

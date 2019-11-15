@@ -8,7 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class WebDriverInitialization {
+public class InitialWebDriver {
+    //private static WebDriver instance;
     public static WebDriver getWebDriver() {
         String webDriver = System.getProperty("browser");
         if (isSame(webDriver,"firefox")) {
@@ -23,7 +24,6 @@ public class WebDriverInitialization {
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
             return driver;
-
         } else {
             throw new WebDriverException("This is an incorrect webDriver input - " + webDriver);
         }
@@ -31,5 +31,14 @@ public class WebDriverInitialization {
     private static boolean isSame(String val1, String val2) {
         return val1 != null && val2 != null && val1.equalsIgnoreCase(val2);
     }
-
+//    public  static WebDriver getInstans(){
+//        if(instance == null){
+//            synchronized (InitialWebDriver.class){
+//                if(instance == null){
+//                    instance = getWebDriver();
+//                }
+//            }
+//        }
+//        return instance;
+//    }
 }
