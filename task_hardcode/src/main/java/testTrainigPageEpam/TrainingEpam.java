@@ -27,7 +27,7 @@ public class TrainingEpam extends AbstractPageObject {
     public TrainingEpam(WebDriver driver) {
         super(driver);
     }
-    public TrainingEpam signInEmailPassword(String mail, String password) throws InterruptedException {
+    public TrainingEpam signInEmailPassword(String mail, String password){
         singIn.click();
         signInEmail.sendKeys(mail);
         signInPassword.sendKeys(password);
@@ -41,15 +41,12 @@ public class TrainingEpam extends AbstractPageObject {
         return this;
     }
     public LoginTrainingEpam passToLoginPageEpam(){
-        signInGo.click();
         return new LoginTrainingEpam(driver);
     }
     public TrainingEpam titleCloseClick() {
         titleClose.click();
         return this;
     }
-
-
     public TrainingEpam homeClick() {
         toHome.click();
         return this;

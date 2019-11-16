@@ -1,7 +1,6 @@
 package testTrainigPageEpam;
 
 import core.AbstractPageObject;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,15 +20,17 @@ public class NewsEpam extends AbstractPageObject {
     private WebElement materialsTitle;
     @FindBy(xpath = "//span[contains(text(),'Videos')]")
     private WebElement videosTitle;
+    @FindBy(xpath = "//a[@class='ng-binding'][parent::div]" )
+    private List<WebElement> linkTitleMaterial;
 
 
     public NewsEpam(WebDriver driver) {
         super(driver);
     }
 
-    public NewsEpam isDisplayedNews() throws InterruptedException {
+    public NewsEpam isDisplayedNews()  {
         try {
-            newsTitle.isDisplayed();
+            fwait.until(ExpectedConditions.elementToBeClickable(newsTitle)).isDisplayed();
         } catch (NoSuchElementException e) {
             System.out.println("Video isn't displayed.");
         }
@@ -47,7 +48,7 @@ public class NewsEpam extends AbstractPageObject {
 
     public NewsEpam isDisplayedMaterials() {
         try {
-            materialsTitle.isDisplayed();
+            fwait.until(ExpectedConditions.elementToBeClickable(materialsTitle)).isDisplayed();
         } catch (NoSuchElementException e) {
             System.out.println("Video isn't displayed.");
         }
@@ -65,11 +66,10 @@ public class NewsEpam extends AbstractPageObject {
 
     public NewsEpam isAllLinksMaterialContains(String s1, String s2) {
         fwait.until(ExpectedConditions.elementToBeClickable(materialsTitle)).click();
-        List<WebElement> linkTitle = driver.findElements(By.xpath("//a[@class='ng-binding'][parent::div]"));
+        List<WebElement> linkTitle = fwait.until(ExpectedConditions.visibilityOfAllElements(linkTitleMaterial));
         for (WebElement link : linkTitle) {
             Assert.assertTrue((link.getText().toLowerCase().contains(s1) || link.getText().toLowerCase().contains(s2)),
-                    "Material link=" + link + " is not contains ‘materials’ or ‘useful’");
-
+                    "Material link=" + link + " is not contains "+s1+" or "+s2+".");
         }
         return this;
     }

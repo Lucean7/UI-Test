@@ -4,6 +4,7 @@ import core.AbstractPageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
 public class FAQEpam extends AbstractPageObject {
@@ -22,7 +23,7 @@ public class FAQEpam extends AbstractPageObject {
         return this;
     }
     public FAQEpam isfirstSentenceContains(String s){
-        firstSentence.click();
+        fwait.until(ExpectedConditions.elementToBeClickable(firstSentence)).click();
         Assert.assertTrue(firstSentenceText.getText().contains(s),
                 "This text does not exist.");
         return this;

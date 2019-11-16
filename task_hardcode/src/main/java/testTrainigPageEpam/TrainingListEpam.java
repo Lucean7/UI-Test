@@ -44,6 +44,8 @@ public class TrainingListEpam extends AbstractPageObject {
     private  WebElement selectLiviv;
     @FindBy(xpath = "//div[@class='yellow-info-banner__item--description ng-binding']")
     private  WebElement selectTrainings;
+    @FindBy(xpath = "//div[@class='training-item__title']")
+    private List<WebElement> tableLinkT;
 
 
     public TrainingListEpam(WebDriver driver) {
@@ -53,7 +55,7 @@ public class TrainingListEpam extends AbstractPageObject {
         js.executeScript(s);
         return this;
     }
-    public TrainingListEpam arrowIconDownClick() throws InterruptedException {
+    public TrainingListEpam arrowIconDownClick(){
         fwait.until(ExpectedConditions.elementToBeClickable(arroIconDown)).click();
         return this;
     }
@@ -66,7 +68,7 @@ public class TrainingListEpam extends AbstractPageObject {
         return this;
     }
     public TrainingListEpam arrowIconRotateClick(){
-        arrowIconRotate.click();
+        fwait.until(ExpectedConditions.elementToBeClickable(arrowIconRotate)).click();
         return this;
     }
     public TrainingListEpam deleteLocationClick(){
@@ -90,20 +92,23 @@ public class TrainingListEpam extends AbstractPageObject {
         return this;
     }
     public TrainingListEpam skillsJavaDeletClick(){
-        skillsJavaDelet.click();
+        fwait.until(ExpectedConditions.elementToBeClickable(skillsJavaDelet)).click();
         return this;
     }
     public TrainingListEpam dataClick(){
-        dataScience.click();
-        dataEngineering.click();
+        fwait.until(ExpectedConditions.elementToBeClickable(dataScience))
+        .click();
+        fwait.until(ExpectedConditions.elementToBeClickable(dataEngineering))
+        .click();
         return this;
     }
     public TrainingListEpam inputSearchBoxClick(String s){
-        searchBox.sendKeys(s);
+        fwait.until(ExpectedConditions.elementToBeClickable(searchBox))
+        .sendKeys(s);
         return this;
     }
     public TrainingListEpam searchBoxClick(){
-        fwait.until(ExpectedConditions.elementToBeClickable(searchBox)).click();
+        searchBox.click();
         return this;
     }
     public TrainingListEpam skillsPascalExist(){
@@ -111,23 +116,26 @@ public class TrainingListEpam extends AbstractPageObject {
         return this;
     }
     public TrainingListEpam selectUkraine() {
-        selectUkraine.click();
+        fwait.until(ExpectedConditions.elementToBeClickable(selectUkraine))
+        .click();
         return this;
     }
     public TrainingListEpam selectLviv() {
-        selectLiviv.click();
+        fwait.until(ExpectedConditions.elementToBeClickable(selectLiviv))
+        .click();
         return this;
     }
     public TrainingListEpam selectLocation() {
-        selectLocation.click();
+        fwait.until(ExpectedConditions.elementToBeClickable(selectLocation))
+        .click();
         return  this;
     }
     public TrainingListEpam isSearchResultsReturned() {
-        List<WebElement> tableLink = driver.findElements(By.xpath("//div[@class='training-item__title']"));
+        List<WebElement> tableLink = tableLinkT ;
         Assert.assertTrue(tableLink.size()!=0,"No results found for this search.");
         return this;
     }
     public WebElement selectTrainings(){
-        return selectTrainings;
+        return fwait.until(ExpectedConditions.elementToBeClickable(selectTrainings));
     }
 }
