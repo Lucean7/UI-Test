@@ -1,11 +1,11 @@
-import core.InitialWebDriver;
+import epamtraining.businessobjects.*;
+import epamtraining.core.InitialWebDriver;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
-import testTrainigPageEpam.*;
 
-import static core.EnvironmentsURL.getPathTraining;
-import static core.EnvironmentsURL.getUserMail;
-import static core.EnvironmentsURL.getUserPassword;
+import static epamtraining.core.EnvironmentsURL.getPathTraining;
+import static epamtraining.core.EnvironmentsURL.getUserMail;
+import static epamtraining.core.EnvironmentsURL.getUserPassword;
 
 
 public class HardCodeTask {
@@ -24,90 +24,97 @@ public class HardCodeTask {
 
     @Test
     public void verifyLoginWithAppropriateCredentials() throws InterruptedException {
-        TrainingEpam trainingEpam = new TrainingEpam(driver)
+        TrainingEpamBO trainingEpamBO = new TrainingEpamBO(driver)
                 .signInEmailPassword(getUserMail("mailTrue","config.userdata.properties"),
                         getUserPassword("passwordTrue","config.userdata.properties"));
-        trainingEpam.passToLoginPageEpam()
-                .getUserInfoName("Viktor Pavlyshyn");
+        trainingEpamBO.passToLoginPageEpamBO()
+                .isUserInfoName("Viktor Pavlyshyn");
     }
     @Test
-    public void VerifyLoginWithIncorrectCredentials() throws InterruptedException {
-        TrainingEpam trainingEpam = new TrainingEpam(driver)
+    public void verifyLoginWithIncorrectCredentials() throws InterruptedException {
+        TrainingEpamBO trainingEpamBO = new TrainingEpamBO(driver)
                 .signInEmailPassword(getUserMail("mailFalse","config.userdata.properties"),
-                        getUserPassword("passwordFalse","config.userdata.properties"))
-                .getMessageFailed()
-                .titleCloseClick();
+                        getUserPassword("passwordFalse","config.userdata.properties"));
+        trainingEpamBO.getMessageFailed()
+                .pressButton(trainingEpamBO.getTrainingEpam().getTitleClose());
     }
     @Test
-    public void VerifyTrainingsSearch() throws InterruptedException {
-        TrainingEpam trainingEpam = new TrainingEpam(driver)
+    public void verifyTrainingsSearch() throws InterruptedException {
+        TrainingEpamBO trainingEpamBO = new TrainingEpamBO(driver)
                 .signInEmailPassword(getUserMail("mailTrue","config.userdata.properties"),
                         getUserPassword("passwordTrue","config.userdata.properties"));
-        trainingEpam.passToLoginPageEpam()
-                .passToTrainingListEpam()
-                .scrollTo("window.scrollTo(0, 900)")
-                .arrowIconDownClick()
-                .bySkillsClick()
-                .skillsJavaClick()
-                .arrowIconRotateClick()
-                .deleteLocationClick()
-                .skillsJavaExist()
-                .skillsJavaDeletClick()
-                .arrowIconDownClick()
-                .dataClick()
-                .arrowIconRotateClick()
-                .skillsDataExist()
-                .skillsJavaDeletClick()
-                .arrowIconDownClick()
-                .inputSearchBoxClick("Pascal")
-                .skillsPascalExist();
+        TrainingListEpamBO trainingListEpamBO = trainingEpamBO.passToLoginPageEpamBO().passToTrainingListEpamBO();
+        trainingListEpamBO.scrollTo(trainingListEpamBO.getTrainingListEpam().getYellowInfoBanner())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getArroIconDown())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getBySkills())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getSkillsJava())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getArrowIconRotate())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getDeleteLocation())
+        .isSkillsExist(trainingListEpamBO.getTrainingListEpam().getSkillsJavaExist())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getSkillsdelet())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getArroIconDown())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getDataScience())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getDataEngineering())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getArrowIconRotate())
+        .isSkillsExist(trainingListEpamBO.getTrainingListEpam().getSkillsDataExist())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getSkillsdelet())
+        .pressButton(trainingListEpamBO.getTrainingListEpam().getArroIconDown())
+        .inputInBox(trainingListEpamBO.getTrainingListEpam().getSearchBox(),"Pascal")
+        .noSkills(trainingListEpamBO.getTrainingListEpam().getTableOfSkills(),"Pascal");
+
     }
     @Test
     public void verifyNewsPage() throws InterruptedException {
-        TrainingEpam trainingEpam = new TrainingEpam(driver)
+        TrainingEpamBO trainingEpamBO = new TrainingEpamBO(driver)
                 .signInEmailPassword(getUserMail("mailTrue","config.userdata.properties"),
                         getUserPassword("passwordTrue","config.userdata.properties"));
-        trainingEpam.passToLoginPageEpam()
-                .passToNewsEpam()
-                .isDisplayedNews().isDisplayedSuccessStories()
-                .isDisplayedMaterials().isDisplayedVideos()
-                .isAllLinksMaterialContains("materials","useful");
+        NewsEpamBO newsEpamBO = trainingEpamBO.passToLoginPageEpamBO().passToNewsEpamBO();
+        newsEpamBO.isDisplayed(newsEpamBO.getNewsEpam().getVideosTitle(),"Videos Title")
+                .isDisplayed(newsEpamBO.getNewsEpam().getMaterialsTitle(),"Materials Title")
+                .isDisplayed(newsEpamBO.getNewsEpam().getSuccessStoriesTitle(),"Success Stories Title")
+                .isDisplayed(newsEpamBO.getNewsEpam().getNewsTitle(),"News Title")
+                .isLinksContains(newsEpamBO.getNewsEpam().getMaterialsTitle(),
+                        newsEpamBO.getNewsEpam().getLinkTitleMaterial(),
+                        "materials", "useful");
     }
     @Test
     public void verifyTrainings() throws InterruptedException {
-        TrainingEpam trainingEpam = new TrainingEpam(driver)
+        TrainingEpamBO trainingEpamBO = new TrainingEpamBO(driver)
                 .signInEmailPassword(getUserMail("mailTrue","config.userdata.properties"),
                         getUserPassword("passwordTrue","config.userdata.properties"));
-        trainingEpam.passToLoginPageEpam()
-                .passToTrainingListEpam()
-                .scrollTo("scrollBy (0, 1000)")
-                .deleteLocationClick()
-                .searchBoxClick()
-                .selectLocation()
-                .selectUkraine()
-                .selectLviv()
-                .arrowIconRotateClick()
-                .isSearchResultsReturned();
+        TrainingListEpamBO trainingListEpamBO = trainingEpamBO.passToLoginPageEpamBO().passToTrainingListEpamBO();
+        trainingListEpamBO.scrollTo(trainingListEpamBO.getTrainingListEpam().getYellowInfoBanner())
+                .pressButton(trainingListEpamBO.getTrainingListEpam().getDeleteLocation())
+                .pressButton(trainingListEpamBO.getTrainingListEpam().getSearchBox())
+                .pressButton(trainingListEpamBO.getTrainingListEpam().getSelectLocation())
+                .pressButton(trainingListEpamBO.getTrainingListEpam().getSelectUkraine())
+                .pressButton(trainingListEpamBO.getTrainingListEpam().getSelectLiviv())
+                .pressButton(trainingListEpamBO.getTrainingListEpam().getArrowIconRotate())
+                .isSearchResultsReturned(trainingListEpamBO.getTrainingListEpam().getTableLinkT());
     }
     @Test
     public void verifyFAQ() throws InterruptedException {
-        TrainingEpam trainingEpam = new TrainingEpam(driver)
+        TrainingEpamBO trainingEpamBO = new TrainingEpamBO(driver)
                 .signInEmailPassword(getUserMail("mailTrue","config.userdata.properties"),
                         getUserPassword("passwordTrue","config.userdata.properties"));
-        LoginTrainingEpam loginTrainingEpam = trainingEpam.passToLoginPageEpam();
-        FAQEpam faqEpam = loginTrainingEpam.passToFAQEpam();
-        faqEpam.scrollTo("arguments[0].scrollIntoView(true);", faqEpam.getHомеText())
-                .isfirstSentenceContains("Technical education is not obligatory, but desirable. Detailed required skills are specified in each training.");
+        LoginTrainingEpamBO loginTrainingEpamBO = trainingEpamBO.passToLoginPageEpamBO();
+        FAQEpamBO faqEpamBO = loginTrainingEpamBO.passToFAQEpamBO();
+        faqEpamBO.scrollTo(faqEpamBO.getFaqEpam().getHomeText())
+                .isSentenceContains(faqEpamBO.getFaqEpam().getFirstSentence(),faqEpamBO.getFaqEpam().getFirstSentenceText(),
+                        "Studying at EPAM Training Center is absolutely free. " +
+                                "A group is formed based on the results of selection testing.");
     }
     @Test
     public void verifyAbout() throws InterruptedException {
-        TrainingEpam trainingEpam = new TrainingEpam(driver)
+        TrainingEpamBO trainingEpamBO = new TrainingEpamBO(driver)
                 .signInEmailPassword(getUserMail("mailTrue","config.userdata.properties"),
                         getUserPassword("passwordTrue","config.userdata.properties"));
-        LoginTrainingEpam loginTrainingEpam = trainingEpam.passToLoginPageEpam();
-        AboutEpam aboutEpam = loginTrainingEpam.passToAboutEpam()
-                .scrollTo("window.scrollTo(0, 1600)")
-                .mapUkraineClick()
-                .isAddressOfLviv("Shevchenka str. 111a");
+        LoginTrainingEpamBO loginTrainingEpamBO = trainingEpamBO.passToLoginPageEpamBO();
+        AboutEpamBO aboutEpamBO = loginTrainingEpamBO.passToAboutEpamBO();
+        aboutEpamBO.scrollTo(aboutEpamBO.getAboutEpam().geTtitleWhereWeAre())
+                .checkAddress(aboutEpamBO.getAboutEpam().getMapUkraine()
+                        ,aboutEpamBO.getAboutEpam().getMapLviv(),
+                        aboutEpamBO.getAboutEpam().getAddressOfLviv(),
+                        "Shevchenka str. 111a");
     }
 }

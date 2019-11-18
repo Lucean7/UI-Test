@@ -1,10 +1,10 @@
-package testTrainigPageEpam;
+package epamtraining.pageobject;
 
-import core.AbstractPageObject;
+import epamtraining.core.AbstractPageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
+
 
 public class TrainingEpam extends AbstractPageObject {
 
@@ -23,32 +23,35 @@ public class TrainingEpam extends AbstractPageObject {
     @FindBy(xpath = "//a[@class='logo logo--epam']")
     private  WebElement toHome;
 
-
     public TrainingEpam(WebDriver driver) {
         super(driver);
     }
-    public TrainingEpam signInEmailPassword(String mail, String password){
-        singIn.click();
-        signInEmail.sendKeys(mail);
-        signInPassword.sendKeys(password);
-        signInGo.click();
-        return this;
+
+    public WebElement getSingIn() {
+        return singIn;
     }
-    public TrainingEpam getMessageFailed(){
-        signInGo.click();
-        Assert.assertEquals(incorrectLogin.getText(), "Ошибка авторизации. Пожалуйста, попробуйте еще раз.",
-                "Incorrect work");//"Login failed. Please try again."
-        return this;
+
+    public WebElement getSignInEmail() {
+        return signInEmail;
     }
-    public LoginTrainingEpam passToLoginPageEpam(){
-        return new LoginTrainingEpam(driver);
+
+    public WebElement getSignInPassword() {
+        return signInPassword;
     }
-    public TrainingEpam titleCloseClick() {
-        titleClose.click();
-        return this;
+
+    public WebElement getSignInGo() {
+        return signInGo;
     }
-    public TrainingEpam homeClick() {
-        toHome.click();
-        return this;
+
+    public WebElement getIncorrectLogin() {
+        return incorrectLogin;
+    }
+
+    public WebElement getTitleClose() {
+        return titleClose;
+    }
+
+    public WebElement getToHome() {
+        return toHome;
     }
 }

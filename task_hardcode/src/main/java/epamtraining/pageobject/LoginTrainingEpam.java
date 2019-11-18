@@ -1,12 +1,13 @@
-package testTrainigPageEpam;
+package epamtraining.pageobject;
 
-import core.AbstractPageObject;
+
+import epamtraining.core.AbstractPageObject;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
+
 
 public class LoginTrainingEpam extends AbstractPageObject {
     @FindBy(xpath = "//div[@class='user-info__name'][parent::a]")
@@ -27,29 +28,33 @@ public class LoginTrainingEpam extends AbstractPageObject {
     public LoginTrainingEpam(WebDriver driver) {
         super(driver);
     }
-    public LoginTrainingEpam getUserInfoName(String name) {
-        Assert.assertEquals(name,userInfoName.getText(), "Incorrect work.");
-        return this;
+
+
+    public WebElement getUserInfoName() {
+        return userInfoName;
     }
-    public LoginTrainingEpam logoutTraining() {
-        userMenu.click();
-        userLogout.click();
-        return this;
+
+    public WebElement getUserLogout() {
+        return userLogout;
     }
-    public TrainingListEpam passToTrainingListEpam() {
-        fwait.until(ExpectedConditions.elementToBeClickable(titlTrainingList)).click();
-        return new TrainingListEpam(driver);
+
+    public WebElement getUserMenu() {
+        return userMenu;
     }
-    public FAQEpam passToFAQEpam() {
-        fwait.until(ExpectedConditions.elementToBeClickable(titlFAQ)).click();
-        return new FAQEpam(driver);
+
+    public WebElement getTitleNews() {
+        return fwait.until(ExpectedConditions.elementToBeClickable(titleNews));
     }
-    public NewsEpam passToNewsEpam(){
-        fwait.until(ExpectedConditions.elementToBeClickable(titleNews)).click();
-        return new NewsEpam(driver);
+
+    public WebElement getTitlTrainingList() {
+        return fwait.until(ExpectedConditions.elementToBeClickable(titlTrainingList));
     }
-    public AboutEpam passToAboutEpam(){
-        fwait.until(ExpectedConditions.elementToBeClickable(titleAbout)).click();
-        return new AboutEpam(driver);
+
+    public WebElement getTitlFAQ() {
+        return fwait.until(ExpectedConditions.elementToBeClickable(titlFAQ));
+    }
+
+    public WebElement getTitleAbout() {
+        return fwait.until(ExpectedConditions.elementToBeClickable(titleAbout));
     }
 }
