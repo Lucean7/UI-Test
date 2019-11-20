@@ -1,0 +1,7 @@
+<suite name="Test Epam">
+    <test name="Test Training Epam page">
+        <classes>
+            <class name="HardCodeTask"/>
+        </classes>>
+    </test>>
+</suite>

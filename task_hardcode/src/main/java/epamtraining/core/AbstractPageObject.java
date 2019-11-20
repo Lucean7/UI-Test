@@ -16,12 +16,10 @@ public abstract class AbstractPageObject {
     protected WebDriver driver;
     protected JavascriptExecutor js;
     protected Wait<WebDriver> fwait;
-    protected WebDriverWait wait;
     public AbstractPageObject(WebDriver driver) {
         this.driver = driver;
         this.js = initSJavascriptExecutor();
         this.fwait = initFluentWait();
-        this.wait= initWebDriverWait();
         PageFactory.initElements(driver, this);
     }
     private JavascriptExecutor initSJavascriptExecutor(){
@@ -34,8 +32,4 @@ public abstract class AbstractPageObject {
                 .pollingEvery(Duration.ofSeconds(5))
                 .ignoring(NoSuchElementException.class, StaleElementReferenceException.class);
     }
-    protected WebDriverWait initWebDriverWait() {
-        return new WebDriverWait(driver, 10);
-    }
-
 }

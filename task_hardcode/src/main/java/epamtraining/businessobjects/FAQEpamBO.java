@@ -17,18 +17,17 @@ public class FAQEpamBO extends AbstractPageObject{
     private FAQEpam initFAQEpam(){
         return new FAQEpam(driver);
     }
-    public FAQEpam getFaqEpam() {
-        return faqEpam;
-    }
 
-    public FAQEpamBO isSentenceContains(WebElement webElement, WebElement textElement, String text){
-        fwait.until(ExpectedConditions.elementToBeClickable(webElement)).click();
-        Assert.assertTrue(fwait.until(ExpectedConditions.elementToBeClickable(textElement)).getText().contains(text),
+    public FAQEpamBO isFAQSentenceContains(String text){
+        fwait.until(ExpectedConditions.elementToBeClickable(faqEpam.getFirstSentence())).click();
+        Assert.assertTrue(fwait.until(ExpectedConditions.elementToBeClickable(faqEpam.getFirstSentenceText()))
+                        .getText().contains(text),
                 "This text does not exist.");
         return this;
     }
-    public FAQEpamBO scrollTo(WebElement webElement){
-        js.executeScript("arguments[0].scrollIntoView(true);",webElement);
+
+    public FAQEpamBO scrollToSentenceText(){
+        js.executeScript("arguments[0].scrollIntoView(true);",faqEpam.getHomeText());
         return this;
     }
 }

@@ -11,23 +11,22 @@ import java.util.concurrent.TimeUnit;
 public class InitialWebDriver {
     private static WebDriver instance;
     private static WebDriver getWebDriver() {
-        WebDriver driver;
         String webDriver = System.getProperty("browser");
         if (isSame(webDriver,"firefox")) {
             WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
+            instance = new FirefoxDriver();
         } else if (isSame(webDriver,"chrome")) {
             WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
+            instance = new ChromeDriver();
         } else {
             throw new WebDriverException("This is an incorrect webDriver input - " + webDriver);
         }
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        return driver;
+        instance.manage().window().maximize();
+        instance.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        return instance;
     }
     private static boolean isSame(String val1, String val2) {
-        return val1 != null && val2 != null && val1.equalsIgnoreCase(val2);
+        return val1 != null && val1.equalsIgnoreCase(val2);
     }
 
     public static void closeDriver() {

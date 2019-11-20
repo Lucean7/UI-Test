@@ -14,20 +14,21 @@ public class AboutEpamBO extends AbstractPageObject{
         super(driver);
         this.aboutEpam = initAboutEpam();
     }
+
     private AboutEpam initAboutEpam(){
       return new AboutEpam(driver);
     }
-    public AboutEpam getAboutEpam() {
-        return aboutEpam;
-    }
-    public AboutEpamBO scrollTo(WebElement webElement){
-        js.executeScript("arguments[0].scrollIntoView(true);", webElement);
+
+    public AboutEpamBO scrollToMap(){
+        js.executeScript("arguments[0].scrollIntoView(true);", aboutEpam.geTtitleWhereWeAre());
         return this;
     }
-    public AboutEpamBO checkAddress(WebElement country,WebElement city,WebElement street, String s) {
-        fwait.until(ExpectedConditions.elementToBeClickable(country)).click();
-        fwait.until(ExpectedConditions.elementToBeClickable(city)).click();
-        Assert.assertTrue(fwait.until(ExpectedConditions.elementToBeClickable(street)).getText().contains(s),"Wrong address.");
+
+    public AboutEpamBO checkAddressLvivEpam(String s) {
+        fwait.until(ExpectedConditions.elementToBeClickable(aboutEpam.getMapUkraine())).click();
+        fwait.until(ExpectedConditions.elementToBeClickable(aboutEpam.getMapLviv())).click();
+        Assert.assertTrue(fwait.until(ExpectedConditions.elementToBeClickable(aboutEpam.getAddressOfLviv()))
+                .getText().contains(s),"Wrong address.");
         return this;
     }
 }
