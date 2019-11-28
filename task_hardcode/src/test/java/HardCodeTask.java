@@ -3,9 +3,7 @@ import epamtraining.core.InitialWebDriver;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
-import static epamtraining.core.EnvironmentsURL.getPathTraining;
-import static epamtraining.core.EnvironmentsURL.getUserMail;
-import static epamtraining.core.EnvironmentsURL.getUserPassword;
+import static epamtraining.core.EnvironmentsURL.*;
 
 public class HardCodeTask {
     private WebDriver driver;
@@ -32,7 +30,7 @@ public class HardCodeTask {
     @Test
     public void verifyLoginWithIncorrectCredentials(){
         TrainingEpamBO trainingEpamBO = new TrainingEpamBO(driver)
-                .signInEmailPassword(getUserMail("mailFalse","config.userdata.properties"),
+                .signInEmailPassword((getUserMail("mailFalse","config.userdata.properties")),
                         getUserPassword("passwordFalse","config.userdata.properties"));
         trainingEpamBO.getMessageFailed()
                 .pressButton(trainingEpamBO.getTrainingEpam().getTitleClose());

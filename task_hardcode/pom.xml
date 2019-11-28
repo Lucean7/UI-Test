@@ -26,7 +26,7 @@
                         <suiteXmlFile>testTrainingEpam.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemPropertyVariables>
-                        <browser>firefox</browser>
+                        <browser>chrome</browser>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

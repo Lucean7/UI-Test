@@ -13,7 +13,7 @@ public class EnvironmentsURL {
         } catch (IOException e) {
             e.printStackTrace();
         }
-       return null;
+        return null;
     }
     public static String getPathTraining(String linkSite, String resources){
         return environment(linkSite, resources);
